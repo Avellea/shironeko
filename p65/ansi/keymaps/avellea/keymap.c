@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   Layer 1 is your traditional typing layout for this keyboard.
   Layer 2 is a function layer that includes media keys, print screen, and the bootloader shortcut. (fn+space).
   Media keys are aligned to the right edge.
-  Layer 3 is currently not used. I don't know how to access it :p
+  Layer 3 is currently not used.
 */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT(
@@ -35,11 +35,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,  KC_LGUI,  KC_LALT,                                KC_SPC,                                 KC_RALT,  MO(1),    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
 [1] = LAYOUT(
-   KC_GRV,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,  KC_MPLY,
+   KC_GRV,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_DEL,  KC_MPLY,
   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,   _______,  KC_MNXT,
   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,             KC_VOLU,
   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,             KC_VOLD,
-  _______,  _______,  _______,                                RESET,                                  _______,  _______,  _______,  _______,  _______),
+  _______,  _______,  _______,                                RESET,                                  MO(2),  _______,  _______,  _______,  _______),
 
 [2] = LAYOUT(
   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,
@@ -51,8 +51,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
   Disable all matrix effects except solid color on startup.
-  TODO: Disable other effects in `config.h`. I would do this now
-  but I have not tested functionality yet.
 */
 void keyboard_post_init_user(void) {
   rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
@@ -72,6 +70,9 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
       break;
     case 1:
       rgb_matrix_set_color_all(105, 0, 255);          /* #6900ff */
+      break;
+    case 2:
+      rgb_matrix_set_color_all(0, 255, 0);            /* #00ff00 */
       break;
     default:
       break;
@@ -95,10 +96,24 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     /*
       If caps lock is off, set the keyboard color based on the current layer.
     */
-    if(get_highest_layer(layer_state) == 0) {
-      rgb_matrix_set_color_all(118, 181, 216);        /* #76b5d8 */
-    } else if(get_highest_layer(layer_state) == 1) {
-      rgb_matrix_set_color_all(105, 0, 255);          /* #6900ff */
+    switch(get_highest_layer(layer_state)) {
+      case 0:
+        rgb_matrix_set_color_all(118, 181, 216);        /* #76b5d8 */
+        break;
+      case 1:
+        rgb_matrix_set_color_all(105, 0, 255);          /* #6900ff */
+        break;
+      case 2:
+        rgb_matrix_set_color_all(0, 255, 0);            /* #00ff00 */
+        break;
+      default:
+        break;
+      break;
     }
+    // if(get_highest_layer(layer_state) == 0) {
+    //   rgb_matrix_set_color_all(118, 181, 216);        /* #76b5d8 */
+    // } else if(get_highest_layer(layer_state) == 1) {
+    //   rgb_matrix_set_color_all(105, 0, 255);          /* #6900ff */
+    // }
   }
 }

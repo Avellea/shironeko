@@ -20,6 +20,16 @@ SYMB layer: `fn+lshift`
 - Tap-dance support (Disabled by default)
 
 
+## TODO
+
+- Add more advanced macros and combos
+- Linux unicode support
+- Refine per-layer lighting schemes
+- Improve Japanese input support
+- Enable and configure VIA and tap-dance features
+- Document keymap and layer layouts
+
+
 ## Resources
 
 - [QMK Documentation](https://docs.qmk.fm/)

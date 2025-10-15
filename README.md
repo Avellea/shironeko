@@ -2,13 +2,22 @@
 
 My personal configuration for the GMMK v2 65%. Fairly simple for now, just some lighting and media keys.
 
+FUNC layer: `fn`
+
+SYMB layer: `fn+lshift`
 
 ## Features
 
 - Caps lock indicator
 - Per-layer lighting
+- Common Japanese punctuation/symbols
+    - ¥
+    - 【】
+    - 。
+    - 、
 - 1000hz, 2ms debounce, 12 events per scan
-- VIA support
+- VIA support (Disabled by default)
+- Tap-dance support (Disabled by default)
 
 
 ## Resources
